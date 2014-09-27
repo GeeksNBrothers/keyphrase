@@ -18,7 +18,7 @@ int normalized_hex_string_length(char hex_string[]) {
     }
 
     if (length % HEX_CHUNK_LENGTH != 0) {
-        length += (HEX_CHUNK_LENGTH - (length % HEX_CHUNK_LENGTH));
+        length = (length / HEX_CHUNK_LENGTH + 1) * HEX_CHUNK_LENGTH;
     }
 
     return length;
@@ -33,10 +33,16 @@ int normalize_hex_string(char buffer[], char hex_string[]) {
     strcpy(buffer, hex_string);
     
     int length = strlen(hex_string);
-    while (length % HEX_CHUNK_LENGTH != 0) {
-        strcat(buffer, "0");
-        length++;
+    int normalized_length = normalized_hex_string_length(hex_string);
+    int gap = (normalized_length - length);
+
+    for (int i=length; i > 0 && gap; i--) {
+        buffer[i] = buffer[i - gap];
     }
+    for (int i=0; i < gap; i++) {
+        buffer[i] = '0';
+    }
+    buffer[normalized_length] = '\0';
 
     return 0;
 }

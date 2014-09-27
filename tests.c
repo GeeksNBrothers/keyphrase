@@ -177,7 +177,7 @@ static char * normalize_hex_string_01b() {
 
 static char * normalize_hex_string_01c() {
     char hex[] = "0xB300562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFFB17BBAF2A";
-    char expected[] = "B300562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFFB17BBAF2A0";
+    char expected[] = "0B300562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFFB17BBAF2A";
     char buffer[normalized_hex_string_length(hex) + 1];
     normalize_hex_string(buffer, hex);
 
@@ -188,7 +188,7 @@ static char * normalize_hex_string_01c() {
 
 static char * normalize_hex_string_01d() {
     char hex[] = "0XB300562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFFB17BBAF2A";
-    char expected[] = "B300562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFFB17BBAF2A0";
+    char expected[] = "0B300562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFFB17BBAF2A";
     char buffer[normalized_hex_string_length(hex) + 1];
     normalize_hex_string(buffer, hex);
 
