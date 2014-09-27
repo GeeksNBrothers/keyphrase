@@ -1,0 +1,7 @@
+#ifndef CONSTANTS_INCLUDED
+#define WORDLENGTH 11
+#define NUMWORDS 65536
+#define WORDFILE "words.txt"
+#define HEX_CHUNK_LENGTH 4
+#define CONSTANTS_INCLUDED
+#endif
