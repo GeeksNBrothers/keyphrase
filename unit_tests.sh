@@ -3,8 +3,8 @@ echo "Watching for changes..."
 
 run_tests() {
     rm tests > /dev/null
+    make tests
     clear
-    gcc -o tests tests.c funcs.c -std=c99 -Wall
     ./tests
 }
 run_tests
