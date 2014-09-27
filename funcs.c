@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "constants.h"
 #include "funcs.h"
@@ -85,6 +86,80 @@ int get_phrase(char buffer[], char hex_string[], char *wordlist[]) {
         }
         get_word(word, hex_quad, wordlist);
         strcat(buffer, word);
+    }
+
+    return 0;
+}
+
+int wordlist_cmp(const void *s1, const void *s2) {
+    const char *key = s1;
+    const char * const *arg = s2;
+    return strcmp(key, *arg);
+}
+
+int index_of_word(char *word, char *wordlist[], int numwords) {
+    char **ptr = (char**) bsearch(word, wordlist, numwords, sizeof(char *), wordlist_cmp);
+    return ptr ? (ptr - wordlist) : -1;
+}
+
+int hex_chunk(char buffer[HEX_CHUNK_LENGTH+1], int source) {
+    sprintf(buffer, HEX_CHUNK_FORMAT, source);
+    return 0;
+}
+
+int wordcount(char phrase[]) {
+    int count = 0;
+    int length = strlen(phrase);
+    int in_word = 0;
+
+    for (int i=0; i < length; i++) {
+        if (phrase[i] == '\t' || phrase[i] == '\n' || phrase[i] == ' ' || phrase[i] == '\r' || phrase[i] == '\0') {
+            count += in_word;
+            in_word = 0;
+        } else {
+            in_word = 1;
+        }
+    }
+    count += in_word;
+
+    return count;
+}
+
+int key_length(char phrase[]) {
+    return wordcount(phrase) * HEX_CHUNK_LENGTH;
+}
+
+int get_key(char key[], char phrase[], char *wordlist[], int wordlist_size) {
+    int length = strlen(phrase);
+    int word_index = 0;
+    char word[WORDLENGTH+1];
+    char chunk[HEX_CHUNK_LENGTH+1];
+    memset(word, 0, sizeof(*word));
+    memset(chunk, 0, sizeof(*chunk));
+    memset(key, 0, sizeof(*key));
+
+    for (int i=0; i < length; i++) {
+        if (phrase[i] == '\t' || phrase[i] == '\n' || phrase[i] == ' ' || phrase[i] == '\r' || phrase[i] == '\0') {
+            if (word_index) {
+                word[word_index] = '\0';
+                hex_chunk(chunk, index_of_word(word, wordlist, wordlist_size));
+                strcat(key, chunk);
+
+                memset(word, 0, sizeof(*word));
+                memset(chunk, 0, sizeof(*chunk));
+            }
+            word_index = 0;
+
+        } else {
+            word[word_index] = phrase[i];
+            word_index++;
+        }
+    }
+
+    if (word_index) {
+        word[word_index] = '\0';
+        hex_chunk(chunk, index_of_word(word, wordlist, wordlist_size));
+        strcat(key, chunk);
     }
 
     return 0;
