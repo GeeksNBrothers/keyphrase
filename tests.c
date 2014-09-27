@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "minunit.h"
 #include "funcs.h"
@@ -7,6 +8,10 @@
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[1;37;41m"
 #define KGRN  "\x1B[1;42;37m"
+
+/***************************
+ * Key to phrase functions
+ ***************************/
 
 static char * is_hex_01a() {
     char hex[] = "0xB300562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFFB17BBAF2A3";
@@ -204,6 +209,87 @@ static char * get_phrase_01a() {
     return 0;
 }
 
+/***************************
+ * Phrase to key functions
+ ***************************/
+static char * index_of_word_01a() {
+    char word[] = "aardvarks";
+    char *wordlist[4] = {"aahing\0\0\0\0\0", "aardvarik\0\0\0\0", "aardvarks\0\0\0", "aardwolf\0\0\0"}; 
+    int numwords = 4;
+    int index = index_of_word(word, wordlist, numwords);
+
+    _it_should("return the index in the wordlist of the word given", index == 2);
+
+    return 0;
+}
+
+static char * index_of_word_01b() {
+    char word[] = "asteroids";
+    char *wordlist[4] = {"aahing\0\0\0\0\0", "aardvarik\0\0\0\0", "aardvarks\0\0\0", "aardwolf\0\0\0"}; 
+    int numwords = 4;
+    int index = index_of_word(word, wordlist, numwords);
+
+    _it_should("return -1 if the word given is not in the wordlist", index  == -1);
+
+    return 0;
+}
+
+static char * hex_chunk_01a() {
+    char chunk[HEX_CHUNK_LENGTH+1];
+    hex_chunk(chunk, 0);
+
+    _it_should("return '0000' for integer 0'", strcmp(chunk, "0000") == 0);
+
+    return 0;
+}
+
+static char * hex_chunk_01b() {
+    char chunk[HEX_CHUNK_LENGTH+1];
+    hex_chunk(chunk, 241);
+
+    _it_should("return '00F1' for integer 241'", strcmp(chunk, "00F1") == 0);
+
+    return 0;
+}
+
+static char * wordcount_01a() {
+    char phrase[] = "zyzzyvas flutings mushers octopuses bizones talkier evokers coagent ringer neutral antipode omnibus havening whistles mistitled vacuums";
+
+    _it_should("return 16 for a 16 word phrase", wordcount(phrase) == 16);
+
+    return 0;
+}
+
+static char * wordcount_01b() {
+    char phrase[] = "  zyzzyvas\t flutings \n mushers octopuses bizones talkier evokers coagent "
+                    "ringer      neutral antipode omnibus havening whistles mistitled  vacuums ";
+
+    _it_should("return 16 for a 16 word phrase, ignoring wonky whitespace", wordcount(phrase) == 16);
+
+    return 0;
+}
+
+static char * key_length_01a() {
+    char phrase[] = "zyzzyvas flutings mushers octopuses bizones talkier evokers coagent ringer neutral antipode omnibus havening whistles mistitled vacuums";
+
+    _it_should("return 64 for a 16 word phrase", key_length(phrase) == 64);
+
+    return 0;
+}
+
+static char * get_key_01a() {
+    char wordlist_size = 4;
+    char *wordlist[4] = {"aahing\0\0\0\0\0", "aardvark\0\0\0\0", "aardvarks\0\0\0", "aardwolf\0\0\0"}; 
+    char phrase[] = "aahing aardvark aardwolf aardvarks aahing aardvarks aardvark aardwolf aahing";
+    char expected_key[] = "000000010003000200000002000100030000";
+    char key[key_length(phrase)];
+    get_key(key, phrase, wordlist, wordlist_size);
+
+    _it_should("return the right key for a given phrase", strcmp(key, expected_key) == 0);
+
+    return 0;
+}
+
 static char * run_tests() {
     _run_test(is_hex_01a);
     _run_test(is_hex_01b);
@@ -233,6 +319,19 @@ static char * run_tests() {
     _run_test(max_phrase_length_01b);
     
     _run_test(get_phrase_01a);
+
+    _run_test(index_of_word_01a);
+    _run_test(index_of_word_01b);
+
+    _run_test(hex_chunk_01a);
+    _run_test(hex_chunk_01b);
+
+    _run_test(wordcount_01a);
+    _run_test(wordcount_01b);
+
+    _run_test(key_length_01a);
+
+    _run_test(get_key_01a);
 
     return 0;
 }
