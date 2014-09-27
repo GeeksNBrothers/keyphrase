@@ -36,11 +36,13 @@ int main(int argc, char **argv) {
 
         printf("%s\n", phrase);
 
-        for (int i=0; i < NUMWORDS; i++) {
-            free(wordlist[i]);
-        }
-
     } else {
-        printf("TBD\n");
+        char key[key_length(argv[1])];
+        get_key(key, argv[1], wordlist, NUMWORDS);
+        printf("0x%s\n", key);
+    }
+
+    for (int i=0; i < NUMWORDS; i++) {
+        free(wordlist[i]);
     }
 }
