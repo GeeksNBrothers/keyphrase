@@ -27,6 +27,39 @@ Getting a private key back from a phrase:
     0xFFFF562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFAB28BBAF2A3
 
 
+## Bitcoin Examples
+
+Getting a Bitcoin address and importable private key (WIF) from a 256-bit private key using [pycoin](https://github.com/richardkiss/pycoin) (cross-platform):
+
+    $ python
+    >>> from pycoin.key import Key
+    >>> k = Key(secret_exponent=0xFFFF562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFAB28BBAF2A3)
+    >>> print k.address()
+    1Cj9a8z4r7yoHcMB87LAd5dMJbeb4dFTYt
+    >>> print k.wif()
+    L5oLTsjGYwq8Suef1c5jDc6kLbYS6LG1VG7E1kFoN4hg2sVNoW3W
+    >>> 
+
+Getting a Bitcoin address and importable private key (WIF) from a 256-bit private key using [bitcoin.sh](https://raw.githubusercontent.com/ryepdx/keyphrase/master/bitcoin.sh) (Linux-only):
+
+    $ source bitcoin.sh
+    $ newBitcoinKey 0xFFFF562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFAB28BBAF2A3
+    ---
+    secret exponent:          0xFFFF562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFAB28BBAF2A3
+    public key:
+        X:                    CAFA2E819FFB11C209651801A47E574A330BDEEF805FB2689A1C2ADE3512F9B4
+        Y:                    0AF853CFBECD031DBB5CAF3EE77CD35587D9CCA244B8F28910FC426E01C3E716
+    compressed:
+        WIF:                  L5oLTsjGYwq8Suef1c5jDc6kLbYS6LG1VG7E1kFoN4hg2sVNoW3W
+        bitcoin address:      1Cj9a8z4r7yoHcMB87LAd5dMJbeb4dFTYt
+    uncompressed:
+        WIF:                  5Km2h5F7F312grYBstSzbaKyVTQSApQnsovX8saiKNEHzzX2psz
+        bitcoin address:      1Q7anhn5mgRHTivdujHeSVyRkeAtBmw8K7
+    $ 
+
+Credit for bitcoin.sh goes to [Lucien Grondilu's bitcoin-bash-tools](https://github.com/grondilu/bitcoin-bash-tools).
+
+
 ## Running Tests (with inotify-tools)
     
     $ ./ua_tests.sh
