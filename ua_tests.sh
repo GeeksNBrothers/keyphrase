@@ -21,12 +21,25 @@ test_phrase_to_key() {
         echo -e '\E[37;44m'"\033[1;42;37m**PASS**: Key output is as expected\033[0m"
     fi
 }
+test_short_phrase_to_key() {
+    actual=$(./keyphrase "abaser zyzzyvas zyzzyvas")
+    expected="0xFFFFFFFFF"
+
+    if [ "$actual" != "$expected" ]
+    then 
+        echo -e '\E[37;44m'"\033[1;37;41m**FAIL**: Unexpected key output!\n          ↪ Expected '$expected' but got '$actual'\n\033[0m"
+    else
+        echo -e '\E[37;44m'"\033[1;42;37m**PASS**: Key output for short phrase is as expected\033[0m"
+    fi
+}
+
 run_tests() {
     rm keyphrase > /dev/null
     clear
     gcc -o keyphrase keyphrase.c funcs.c -std=c99 -Wall
     test_key_to_phrase
     test_phrase_to_key
+    test_short_phrase_to_key
 }
 run_tests
 

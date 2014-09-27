@@ -36,7 +36,7 @@ int normalize_hex_string(char buffer[], char hex_string[]) {
     int normalized_length = normalized_hex_string_length(hex_string);
     int gap = (normalized_length - length);
 
-    for (int i=length; i > 0 && gap; i--) {
+    for (int i=normalized_length; i > 0 && gap; i--) {
         buffer[i] = buffer[i - gap];
     }
     for (int i=0; i < gap; i++) {
@@ -148,7 +148,12 @@ int get_key(char key[], char phrase[], char *wordlist[], int wordlist_size) {
         if (phrase[i] == '\t' || phrase[i] == '\n' || phrase[i] == ' ' || phrase[i] == '\r' || phrase[i] == '\0') {
             if (word_index) {
                 word[word_index] = '\0';
-                hex_chunk(chunk, index_of_word(word, wordlist, wordlist_size));
+
+                if (strlen(key) == 0) {
+                    sprintf(chunk, "%X", index_of_word(word, wordlist, wordlist_size));
+                } else {
+                    hex_chunk(chunk, index_of_word(word, wordlist, wordlist_size));
+                }
                 strcat(key, chunk);
 
                 memset(word, 0, sizeof(*word));

@@ -197,6 +197,18 @@ static char * normalize_hex_string_01d() {
     return 0;
 }
 
+static char * normalize_hex_string_01e() {
+    char hex[] = "FFFFFFFFF";
+    char expected[] = "000FFFFFFFFF";
+    char buffer[normalized_hex_string_length(hex) + 1];
+    normalize_hex_string(buffer, hex);
+
+    _it_should("normalize strings without leading '0x's and only 9 characters", strcmp(buffer, expected) == 0);
+
+    return 0;
+}
+
+
 static char * get_phrase_01a() {
     char hex[] = "00020000000100030000";
     char *wordlist[] = {"aahing", "aardvark", "aardvarks", "aardwolf"}; 
@@ -314,6 +326,7 @@ static char * run_tests() {
     _run_test(normalize_hex_string_01b);
     _run_test(normalize_hex_string_01c);
     _run_test(normalize_hex_string_01d);
+    _run_test(normalize_hex_string_01e);
     
     _run_test(max_phrase_length_01a);
     _run_test(max_phrase_length_01b);
