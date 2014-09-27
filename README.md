@@ -39,9 +39,9 @@ Getting a private key back from a phrase:
     $ ./tests
 
 
-**NOTE:** Converting phrases back to keys does not yet work.
+## Notes
 
-**NOTE:** Be very careful in transcribing your keyphrase if you choose to write it down somewhere. There are a lot of unusual words in this wordlist, and quite a few that are likely *very* similar to words you come across often in your day-to-day life. Make sure to try decoding your keyphrase back into your private key before destroying any copies of the original private key.
-
-**NOTE:** If you have [inotify-tools](https://github.com/rvoicilas/inotify-tools) installed, use the included test scripts! They'll give you the shiny, Grunt-like experience of having your tests compile and run automatically every time you make a change to your source files. If you're running Ubuntu, you can install the package with `sudo apt-get install inotify-tools`.
+1. Converting phrases back to keys does not yet work.
+2. Be very careful in transcribing your keyphrase if you choose to write it down somewhere. There are a lot of unusual words in this wordlist, and quite a few that are likely *very* similar to words you come across often in your day-to-day life. Make sure to try decoding your keyphrase back into your private key before destroying any copies of the original private key.
+3. If you have [inotify-tools](https://github.com/rvoicilas/inotify-tools) installed, use the included test scripts! They'll give you the shiny, Grunt-like experience of having your tests compile and run automatically every time you make a change to your source files. If you're running Ubuntu, you can install the package with `sudo apt-get install inotify-tools`.
 
