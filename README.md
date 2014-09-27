@@ -8,9 +8,12 @@ There are a few programs that do what this program does, but none I'd found that
 This program uses a 65,536 word list, allowing *any* private key to be encoded using as few English words as possible. For example, a 256 bit private key (such as the ones which underlie Bitcoin addresses) can be encoded using only 16 words without any loss of key strength.
 
 
-## Compiling
+## Compiling and Installing
 
-    gcc -o keyphrase keyphrase.c funcs.c -std=c99 -Wall
+    make
+    make install
+
+**NOTE:** On some systems, you may need to run `sudo make install` instead of just `make install`.
 
 
 ## Usage
