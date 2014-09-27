@@ -32,9 +32,9 @@ test_invalid_word_in_phrase() {
 }
 
 run_tests() {
-    rm keyphrase > /dev/null
+    make clean
+    make keyphrase
     clear
-    gcc -o keyphrase keyphrase.c funcs.c -std=c99 -Wall
     test_key_to_phrase
     test_phrase_to_key
     test_short_phrase_to_key
