@@ -23,7 +23,7 @@ test_phrase_to_key() {
 }
 test_short_phrase_to_key() {
     actual=$(./keyphrase "abaser zyzzyvas zyzzyvas")
-    expected="0xFFFFFFFFF"
+    expected="0x000FFFFFFFFF"
 
     if [ "$actual" != "$expected" ]
     then 

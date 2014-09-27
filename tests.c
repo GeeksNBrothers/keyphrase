@@ -293,7 +293,7 @@ static char * get_key_01a() {
     char wordlist_size = 4;
     char *wordlist[4] = {"aahing\0\0\0\0\0", "aardvark\0\0\0\0", "aardvarks\0\0\0", "aardwolf\0\0\0"}; 
     char phrase[] = "aahing aardvark aardwolf aardvarks aahing aardvarks aardvark aardwolf aahing";
-    char expected_key[] = "000010003000200000002000100030000";
+    char expected_key[] = "000000010003000200000002000100030000";
     char key[key_length(phrase)];
     get_key(key, phrase, wordlist, wordlist_size);
 

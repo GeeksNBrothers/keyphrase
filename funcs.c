@@ -149,11 +149,7 @@ int get_key(char key[], char phrase[], char *wordlist[], int wordlist_size) {
             if (word_index) {
                 word[word_index] = '\0';
 
-                if (strlen(key) == 0) {
-                    sprintf(chunk, "%X", index_of_word(word, wordlist, wordlist_size));
-                } else {
-                    hex_chunk(chunk, index_of_word(word, wordlist, wordlist_size));
-                }
+                hex_chunk(chunk, index_of_word(word, wordlist, wordlist_size));
                 strcat(key, chunk);
 
                 memset(word, 0, sizeof(*word));
