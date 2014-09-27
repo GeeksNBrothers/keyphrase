@@ -1,36 +1,28 @@
+it_should() {
+    if [ "$2" != "$3" ]
+    then 
+        echo -e '\E[37;44m'"\033[1;37;41m**FAIL**: it should $1\n          ↪ Expected '$2' but got '$3'\n\033[0m"
+    else
+        echo -e '\E[37;44m'"\033[1;42;37m**PASS**: it should $1\033[0m"
+    fi
+}
+
 test_key_to_phrase() {
     actual=$(./keyphrase 0xFFFF562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFAB28BBAF2A3)
     expected="zyzzyvas flutings mushers octopuses bizones talkier evokers coagent ringer neutral antipode omnibus havening whistles mistitled vacuums"
-
-    if [ "$actual" != "$expected" ]
-    then 
-        echo -e '\E[37;44m'"\033[1;37;41m**FAIL**: Unexpected phrase output!\n          ↪ Expected '$expected' but got '$actual'\n\033[0m"
-    else
-        echo -e '\E[37;44m'"\033[1;42;37m**PASS**: Phrase output is as expected\033[0m"
-    fi
+    it_should "return the correct passphrase for a 256-bit key" "$expected" "$actual"
 }
 
 test_phrase_to_key() {
     actual=$(./keyphrase "zyzzyvas flutings mushers octopuses bizones talkier evokers coagent ringer neutral antipode omnibus havening whistles mistitled vacuums")
     expected="0xFFFF562F8F9A961E158BDE2D4CCD2A64BB1D923208939714675BFAB28BBAF2A3"
-
-    if [ "$actual" != "$expected" ]
-    then 
-        echo -e '\E[37;44m'"\033[1;37;41m**FAIL**: Unexpected key output!\n          ↪ Expected '$expected' but got '$actual'\n\033[0m"
-    else
-        echo -e '\E[37;44m'"\033[1;42;37m**PASS**: Key output is as expected\033[0m"
-    fi
+    it_should "return the correct 256-bit key for its passphrase" "$expected" "$actual"
 }
+
 test_short_phrase_to_key() {
     actual=$(./keyphrase "abaser zyzzyvas zyzzyvas")
     expected="0x000FFFFFFFFF"
-
-    if [ "$actual" != "$expected" ]
-    then 
-        echo -e '\E[37;44m'"\033[1;37;41m**FAIL**: Unexpected key output!\n          ↪ Expected '$expected' but got '$actual'\n\033[0m"
-    else
-        echo -e '\E[37;44m'"\033[1;42;37m**PASS**: Key output for short phrase is as expected\033[0m"
-    fi
+    it_should "return the correct short key for a three word passphrase" "$expected" "$actual"
 }
 
 run_tests() {
