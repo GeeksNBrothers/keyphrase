@@ -3,6 +3,7 @@ echo "Watching for changes..."
 
 run_tests() {
     rm tests > /dev/null
+    make clean
     make tests
     clear
     ./tests
