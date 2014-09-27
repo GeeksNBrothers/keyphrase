@@ -71,7 +71,7 @@ Credit for bitcoin.sh goes to [Lucien Grondilu's bitcoin-bash-tools](https://git
 
 ## Running Tests (without inotify-tools, unit tests only)
 
-    $ gcc -o tests tests.c funcs.c -std=c99 -Wall
+    $ make tests
     $ ./tests
 
 
