@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
     FILE *fp = fopen(WORDFILE, "r");
 
     if (!fp) {
-       printf("Could not find wordlist: '%s' is missing!", WORDFILE); 
+       printf("Could not find wordlist: '%s' is missing!\n", WORDFILE); 
        return 1;
     }
 
