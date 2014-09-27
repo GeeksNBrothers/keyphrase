@@ -1,9 +1,9 @@
 it_should() {
     if [ "$2" != "$3" ]
     then 
-        echo -e '\E[37;44m'"\033[1;37;41m**FAIL**: it should $1\n          ↪ Expected '$2' but got '$3'\n\033[0m"
+        echo -e '\E[37;44m'"\033[1;37;41m**FAIL**: it should $1 \n          ↪ Expected '$2' but got '$3' \n\033[0m"
     else
-        echo -e '\E[37;44m'"\033[1;42;37m**PASS**: it should $1\033[0m"
+        echo -e '\E[37;44m'"\033[1;42;37m**PASS**: it should $1 \033[0m"
     fi
 }
 
