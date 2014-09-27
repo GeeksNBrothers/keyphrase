@@ -38,8 +38,14 @@ int main(int argc, char **argv) {
 
     } else {
         char key[key_length(argv[1])];
-        get_key(key, argv[1], wordlist, NUMWORDS);
-        printf("0x%s\n", key);
+        char err_msg[ERR_MSG_LENGTH + strlen(argv[1])];
+        get_key(key, argv[1], wordlist, NUMWORDS, err_msg);
+
+        if (strlen(err_msg) > 0) {
+            printf("ERROR: %s\n", err_msg);
+        } else {
+            printf("0x%s\n", key);
+        }
     }
 
     for (int i=0; i < NUMWORDS; i++) {

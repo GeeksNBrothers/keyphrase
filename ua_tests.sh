@@ -25,6 +25,12 @@ test_short_phrase_to_key() {
     it_should "return the correct short key for a three word passphrase" "$expected" "$actual"
 }
 
+test_invalid_word_in_phrase() {
+    actual=$(./keyphrase "abaser thisisnotawordinanydictionary zyzzyvas")
+    expected="ERROR: Could not find 'thisisnotaw' in the wordlist!"
+    it_should "return an error message when an invalid word is passed in" "$expected" "$actual"
+}
+
 run_tests() {
     rm keyphrase > /dev/null
     clear
@@ -32,6 +38,7 @@ run_tests() {
     test_key_to_phrase
     test_phrase_to_key
     test_short_phrase_to_key
+    test_invalid_word_in_phrase
 }
 run_tests
 

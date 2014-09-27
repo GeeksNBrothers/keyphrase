@@ -4,5 +4,6 @@
 #define WORDFILE "words.txt"
 #define HEX_CHUNK_LENGTH 4
 #define HEX_CHUNK_FORMAT "%04X"
+#define ERR_MSG_LENGTH 64
 #define CONSTANTS_INCLUDED
 #endif

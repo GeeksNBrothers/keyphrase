@@ -11,4 +11,4 @@ int index_of_word(char *word, char *wordlist[], int numwords);
 int hex_chunk(char buffer[HEX_CHUNK_LENGTH+1], int source);
 int wordcount(char phrase[]);
 int key_length(char phrase[]);
-int get_key(char key[], char phrase[], char* wordlist[], int wordlist_size);
+int get_key(char key[], char phrase[], char* wordlist[], int wordlist_size, char err_msg[]);
