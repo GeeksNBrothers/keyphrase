@@ -28,7 +28,13 @@ test_short_phrase_to_key() {
 test_invalid_word_in_phrase() {
     actual=$(./portable/keyphrase "abaser thisisnotawordinanydictionary zyzzyvas")
     expected="ERROR: Could not find 'thisisnotaw' in the wordlist!"
-    it_should "return an error message when an invalid word is passed in" "$expected" "$actual"
+    it_should "return an error message when an invalid word is in the phrase passed in" "$expected" "$actual"
+}
+
+test_invalid_short_phrase() {
+    actual=$(./portable/keyphrase "ojo")
+    expected="ERROR: Could not find 'ojo' in the wordlist!"
+    it_should "return an error message when a short invalid word is passed in" "$expected" "$actual"
 }
 
 run_tests() {
@@ -39,6 +45,7 @@ run_tests() {
     test_phrase_to_key
     test_short_phrase_to_key
     test_invalid_word_in_phrase
+    test_invalid_short_phrase
 }
 run_tests
 

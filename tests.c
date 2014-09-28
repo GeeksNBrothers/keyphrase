@@ -291,8 +291,8 @@ static char * key_length_01a() {
 
 static char * get_key_01a() {
     char wordlist_size = 4;
-    char *wordlist[4] = {"aahing\0\0\0\0\0", "aardvark\0\0\0\0", "aardvarks\0\0\0", "aardwolf\0\0\0"}; 
-    char phrase[] = "aahing aardvark aardwolf aardvarks aahing aardvarks aardvark aardwolf aahing";
+    char *wordlist[4] = {"aahing\0\0\0\0\0", "aardvark\0\0\0\0", "aardvarks\0\0\0", "elevententh"}; 
+    char phrase[] = "aahing aardvark elevententh aardvarks aahing aardvarks aardvark elevententh aahing";
     char expected_key[] = "000000010003000200000002000100030000";
     char key[key_length(phrase)];
     char err_msg[ERR_MSG_LENGTH];
@@ -313,6 +313,20 @@ static char * get_key_02a() {
     get_key(key, phrase, wordlist, wordlist_size, err_msg);
 
     _it_should("return an error message when the phrase contains an unknown word", strcmp(err_msg, expected_error) == 0);
+
+    return 0;
+}
+
+static char * get_key_02b() {
+    char wordlist_size = 4;
+    char *wordlist[4] = {"aahing\0\0\0\0\0", "aardvark\0\0\0\0", "aardvarks\0\0\0", "aardwolf\0\0\0"}; 
+    char phrase[] = "ojo";
+    char expected_error[] = "Could not find 'ojo' in the wordlist!";
+    char key[key_length(phrase)];
+    char err_msg[ERR_MSG_LENGTH];
+    get_key(key, phrase, wordlist, wordlist_size, err_msg);
+
+    _it_should("return an error message when the phrase is a short unknown word", strcmp(err_msg, expected_error) == 0);
 
     return 0;
 }
@@ -361,6 +375,7 @@ static char * run_tests() {
 
     _run_test(get_key_01a);
     _run_test(get_key_02a);
+    _run_test(get_key_02b);
 
     return 0;
 }
