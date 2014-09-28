@@ -386,6 +386,6 @@ int main(int argc, char **argv) {
         printf(KRED "**FAIL**: %s" KNRM "\n", result);
 
     } else {
-        printf(KGRN "**PASSED %d TESTS**" KNRM "\n", tests_run);
+        printf(KGRN "**PASSED ALL %d TESTS**" KNRM "\n", tests_run);
     }
 }

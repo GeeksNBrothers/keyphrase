@@ -1,10 +1,15 @@
+failed_tests=0
+run_tests=0
+
 it_should() {
     if [ "$2" != "$3" ]
     then 
         echo -e '\E[37;44m'"\033[1;37;41m**FAIL**: it should $1 \n          ↪ Expected '$2' but got '$3' \n\033[0m"
+        failed_tests=$((failed_tests + 1))
     else
         echo -e '\E[37;44m'"\033[1;42;37m**PASS**: it should $1 \033[0m"
     fi
+    run_tests=$((run_tests + 1))
 }
 
 test_key_to_phrase() {
@@ -38,19 +43,30 @@ test_invalid_short_phrase() {
 }
 
 run_tests() {
-    make clean
-    make portable
-    clear
+    failed_tests=0
+    run_tests=0
+    make -s clean
+    make -s portable
     test_key_to_phrase
     test_phrase_to_key
     test_short_phrase_to_key
     test_invalid_word_in_phrase
     test_invalid_short_phrase
-}
-run_tests
 
-while true; do
-    change=$(inotifywait -q -e close_write,moved_to,create {*.c,*.h})
-    change=${change#./ * }
+    if [ "$failed_tests" -eq 0 ]; then
+        echo -e '\E[37;44m'"\033[1;42;37m**PASSED ALL $run_tests TESTS** \033[0m"
+    else
+        echo -e '\E[37;44m'"\033[1;37;41m**FAILED $failed_tests OUT OF $run_tests TESTS** \033[0m"
+    fi
+}
+
+if [ "$1" == "--watch" ] || [ "$1" == "-w" ]; then
+    while true; do
+        clear
+        run_tests  
+        change=$(inotifywait -q -e close_write,moved_to,create {*.c,*.h})
+        change=${change#./ * }
+    done
+else
     run_tests
-done
+fi

@@ -14,8 +14,8 @@ portable: keyphrase.c funcs.h funcs.c tests
 	cp words.txt.gpg portable
 	$(CC) $(CFLAGS) -o portable/keyphrase keyphrase.c funcs.c
 
-tests: tests.c funcs.h funcs.c
-	$(CC) $(CFLAGS) -o tests tests.c funcs.c
+tests: unit_tests.c funcs.h funcs.c
+	$(CC) $(CFLAGS) -o unit_tests unit_tests.c funcs.c
 
 install: keyphrase 
 	mkdir -p ${BIN_DIR}
@@ -25,4 +25,4 @@ install: keyphrase
 
 clean:
 	rm -fr portable
-	rm -f keyphrase tests *~ *.o core
+	rm -f keyphrase unit_tests *~ *.o core

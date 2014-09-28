@@ -65,14 +65,12 @@ Credit for bitcoin.sh goes to [Lucien Grondilu's bitcoin-bash-tools](https://git
 
 ## Running Tests (with inotify-tools)
     
-    $ ./ua_tests.sh
-    $ ./unit_tests.sh
+    $ ./tests.sh --watch
 
 
-## Running Tests (without inotify-tools, unit tests only)
+## Running Tests (without inotify-tools)
 
-    $ make tests
-    $ ./tests
+    $ ./tests.sh
 
 
 ## Notes
