@@ -139,6 +139,7 @@ int get_key(char key[], char phrase[], char *wordlist[], int wordlist_size, char
     int length = strlen(phrase);
     int char_index = 0;
     int word_index;
+    int on_whitespace = 0;
     char word[WORDLENGTH+1];
     char chunk[HEX_CHUNK_LENGTH+1];
     memset(word, 0, sizeof(*word));
@@ -147,42 +148,30 @@ int get_key(char key[], char phrase[], char *wordlist[], int wordlist_size, char
     memset(err_msg, 0, sizeof(*err_msg));
 
     for (int i=0; i < length; i++) {
-        if (phrase[i] == '\t' || phrase[i] == '\n' || phrase[i] == ' ' || phrase[i] == '\r' || phrase[i] == '\0') {
-            if (char_index) {
-                word[char_index] = '\0';
-                word_index = index_of_word(word, wordlist, wordlist_size);
+        on_whitespace = (phrase[i] == '\t' || phrase[i] == '\n' || phrase[i] == ' ' || phrase[i] == '\r' || phrase[i] == '\0');
 
-                if (word_index == -1) {
-                    sprintf(err_msg, "Could not find '%s' in the wordlist!", word);
-                    return 1;
-                }
-
-                hex_chunk(chunk, word_index);
-                strcat(key, chunk);
-
-                memset(word, 0, sizeof(*word));
-                memset(chunk, 0, sizeof(*chunk));
-            }
-            char_index = 0;
-
-        } else if (char_index == WORDLENGTH+1) {
-            word[char_index - 1] = '\0';
+        if (!on_whitespace) {
+            word[char_index] = phrase[i];
+            char_index++;
+        }
+        
+        if (char_index && (on_whitespace || char_index == WORDLENGTH || i+1 == length)) {
+            word[char_index] = '\0';
+            word_index = index_of_word(word, wordlist, wordlist_size);
 
             if (word_index == -1) {
                 sprintf(err_msg, "Could not find '%s' in the wordlist!", word);
                 return 1;
             }
 
-        } else {
-            word[char_index] = phrase[i];
-            char_index++;
-        }
-    }
+            hex_chunk(chunk, word_index);
+            strcat(key, chunk);
 
-    if (char_index) {
-        word[char_index] = '\0';
-        hex_chunk(chunk, index_of_word(word, wordlist, wordlist_size));
-        strcat(key, chunk);
+            memset(word, 0, sizeof(*word));
+            memset(chunk, 0, sizeof(*chunk));
+            char_index = 0;
+            on_whitespace = 0;
+        }
     }
 
     return 0;
