@@ -43,6 +43,8 @@ int main(int argc, char **argv) {
 
         if (strlen(err_msg) > 0) {
             printf("ERROR: %s\n", err_msg);
+            return 1;
+
         } else {
             printf("0x%s\n", key);
         }
@@ -51,4 +53,6 @@ int main(int argc, char **argv) {
     for (int i=0; i < NUMWORDS; i++) {
         free(wordlist[i]);
     }
+
+    return 0;
 }
