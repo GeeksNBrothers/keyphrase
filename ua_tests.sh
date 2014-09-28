@@ -38,19 +38,22 @@ test_invalid_short_phrase() {
 }
 
 run_tests() {
-    make clean
-    make portable
-    clear
+    make -s clean
+    make -s  portable
     test_key_to_phrase
     test_phrase_to_key
     test_short_phrase_to_key
     test_invalid_word_in_phrase
     test_invalid_short_phrase
 }
-run_tests
 
-while true; do
-    change=$(inotifywait -q -e close_write,moved_to,create {*.c,*.h})
-    change=${change#./ * }
+if [ "$1" == "--watch" ] || [ "$1" == "-w" ]; then
+    while true; do
+        clear
+        run_tests
+        change=$(inotifywait -q -e close_write,moved_to,create {*.c,*.h})
+        change=${change#./ * }
+    done
+else
     run_tests
-done
+fi
