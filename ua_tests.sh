@@ -54,9 +54,16 @@ run_tests() {
     test_invalid_short_phrase
 
     if [ "$failed_tests" -eq 0 ]; then
-        echo -e '\E[37;44m'"\033[1;42;37m**PASSED ALL $run_tests TESTS** \033[0m"
+        result="**PASSED ALL $run_tests TESTS**"
+        echo -e '\E[37;44m'"\033[1;42;37m$result \033[0m"
     else
-        echo -e '\E[37;44m'"\033[1;37;41m**FAILED $failed_tests OUT OF $run_tests TESTS** \033[0m"
+        result="**FAILED $failed_tests OUT OF $run_tests TESTS**"
+        echo -e '\E[37;44m'"\033[1;37;41m$result \033[0m"
+    fi
+
+    command -v notify-send >/dev/null 2>&1 
+    if [ "$?" -eq 0 ]; then
+        notify-send "UA Tests" "$result"
     fi
 }
 
