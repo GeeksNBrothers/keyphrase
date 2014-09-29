@@ -1,14 +1,9 @@
 run_tests() {
-    echo
-    echo "User Acceptance Tests"
-    echo "====================="
+    echo -e "\nUser Acceptance Tests\n====================="
     ./ua_tests.sh
-    echo
 
-    echo "Unit Tests"
-    echo "=========="
+    echo -e "\nUnit Tests\n=========="
     ./unit_tests.sh
-    echo
 }
 
 if [ "$1" == "--watch" ] || [ "$1" == "-w" ]; then
