@@ -45,6 +45,7 @@ test_invalid_short_phrase() {
 run_tests() {
     failed_tests=0
     run_tests=0
+    retval=0
     make -s clean
     make -s portable
     test_key_to_phrase
@@ -59,12 +60,15 @@ run_tests() {
     else
         result="**FAILED $failed_tests OUT OF $run_tests TESTS**"
         echo -e '\E[37;44m'"\033[1;37;41m$result \033[0m"
+        retval=1
     fi
 
     command -v notify-send >/dev/null 2>&1 
     if [ "$?" -eq 0 ]; then
         notify-send "UA Tests" "$result"
     fi
+
+    return $retval
 }
 
 if [ "$1" == "--watch" ] || [ "$1" == "-w" ]; then
@@ -75,4 +79,5 @@ if [ "$1" == "--watch" ] || [ "$1" == "-w" ]; then
     done
 else
     run_tests
+    exit $?
 fi

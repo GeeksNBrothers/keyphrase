@@ -2,6 +2,7 @@ run_tests() {
     make -s clean
     make -s tests
     result=$(./unit_tests)
+    retval=$?
 
     command -v notify-send >/dev/null 2>&1 
     if [ "$?" -eq 0 ]; then
@@ -10,6 +11,7 @@ run_tests() {
     fi
 
     echo "$result"
+    return $retval
 }
 
 if [ "$1" == "--watch" ] || [ "$1" == "-w" ]; then
@@ -20,4 +22,5 @@ if [ "$1" == "--watch" ] || [ "$1" == "-w" ]; then
     done
 else
     run_tests
+    exit $?
 fi

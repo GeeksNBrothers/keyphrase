@@ -1,0 +1,3 @@
+language: c
+script: ./ryepdx/keyphrase/tests.sh
+    

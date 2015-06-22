@@ -384,8 +384,10 @@ int main(int argc, char **argv) {
     char *result = run_tests();
     if (result != 0) {
         printf(KRED "**FAIL**: %s" KNRM "\n", result);
+        exit(EXIT_FAILURE);
 
     } else {
         printf(KGRN "**PASSED ALL %d TESTS**" KNRM "\n", tests_run);
+        exit(EXIT_SUCCESS);
     }
 }
