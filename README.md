@@ -1,6 +1,8 @@
 keyphrase
 =========
 
+[![Build Status](https://travis-ci.org/ryepdx/keyphrase.svg?branch=master)](https://travis-ci.org/ryepdx/keyphrase)
+
 A CLI utility that converts a private key expressed in hexadecimal to a phrase, with each word representing as close to 16 bits in your private key as your key's length allows. Also converts phrases back to their hexadecimal equivalents.
 
 There are a few programs that do what this program does, but none I'd found that used a wordlist as extensive as I wanted. A more extensive wordlist allows larger keys to be encoded with fewer words. I wanted something that would give me a key I could reasonably memorize if I wanted to without compromising on security.
