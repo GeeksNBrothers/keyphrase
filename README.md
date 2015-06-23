@@ -9,6 +9,7 @@ There are a few programs that do what this program does, but none I'd found that
 
 This program uses a 65,536 word list, allowing *any* private key to be encoded using as few English words as possible. For example, a 256 bit private key (such as the ones which underlie Bitcoin addresses) can be encoded using only 16 words without any loss of key strength.
 
+**WARNING:** This is *not* a BIP-0039 implementation, and it does not contain the same safeguards as BIP-0039 does. There are words on the wordlist that differ by only a letter or two, and there is no checksum in the generated phrase. These were not features I particularly cared about and thus they were not features I included. If you want to make them options, though, I'd happily accept a pull request.
 
 ## Compiling and Installing
 
