@@ -1,3 +1,5 @@
+#!/bin/bash
+
 run_tests() {
     echo -e "\nUser Acceptance Tests\n====================="
     ./ua_tests.sh

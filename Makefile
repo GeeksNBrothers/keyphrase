@@ -17,6 +17,9 @@ portable: keyphrase.c funcs.h funcs.c tests
 tests: unit_tests.c funcs.h funcs.c
 	$(CC) $(CFLAGS) -o unit_tests unit_tests.c funcs.c
 
+test:
+	./tests.sh
+
 install: keyphrase 
 	mkdir -p ${BIN_DIR}
 	install -c -s -m 755 -o root -g root keyphrase $(BIN_DIR)
